@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffecd2, #fcb69f);
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    border: 2px solid #f2f2f2;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: none;
+    width: 60%;
+}
+
+.container.active {
+    display: block;
+}
+
+h1 {
+    color: #ff6b6b;
+    font-size: 28px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff6b6b;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #ff4a4a;
+}
+
+input {
+    padding: 20px;
+    font-size: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.option {
+    padding: 30px 30px;
+    font-size: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.option.selected {
+    border-color: #ff6b6b;
+}
+
+.option:hover {
+    background-color: #ffebeb;
+}
+
+.options-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.option img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    object-fit: cover;
+    transition: border-color 0.3s;
+}
+
+.option:hover img {
+    border-color: #ff6b6b;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 15px;
+    background: linear-gradient(to right, #ff0080, #ff8c00, #ffff00, #8cff00, #00ffcc);
+    border-radius: 10px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff6b6b;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    input {
+        padding: 15px;
+        font-size: 16px;
+        margin: 10px;
+    }
+
+    .option {
+        padding: 20px;
+        font-size: 16px;
+        margin: 10px;
+    }
+
+    .option img {
+        width: 120px;
+        height: 120px;
+    }
+
+    input[type="range"] {
+        height: 10px;
+    }
+}
+
+/* Colorful range slider styles */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 15px;
+    background: linear-gradient(to right, #ff0080, #ff8c00, #ffff00, #8cff00, #00ffcc); /* Colorful gradient */
+    border-radius: 10px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff6b6b;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff6b6b;
+    cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ff6b6b;
+    cursor: pointer;
+}
