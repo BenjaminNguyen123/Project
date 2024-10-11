@@ -81,7 +81,52 @@
         .netflix-option.selected img, .food-option.selected img {
             border: 3px solid #ff6b6b;
         }
+
+        /* Colorful range slider styles */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(to right, #ff0080, #ff8c00, #ffff00, #8cff00, #00ffcc); /* Colorful gradient */
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff6b6b;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff6b6b;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-ms-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ff6b6b;
+            cursor: pointer;
+        }
     </style>
+</head>
+<body>
+    <!-- Your HTML body content goes here -->
+</body>
+</html>
 </head>
 <body>
 
@@ -172,7 +217,8 @@
 
     <button id="continueFood" onclick="continueSelection()">Continue</button>
 </div>
-<!-- Slide 7: Rating Slide with Colorful, Larger Slider -->
+
+<!-- Slide 7: Rating Slide -->
 <div class="container" id="ratingSlide" style="text-align: center;">
     <h1 style="font-family: 'Arial', sans-serif; font-weight: bold; color: #ff6b6b;">
         🥺💖
@@ -195,264 +241,157 @@
         Continue c(＾＿＾)っ
     </button>
 </div>
-<!-- Final Slide: See You Soon -->
+
+<!-- Add the JavaScript to dynamically update the excitement level -->
+<script>
+document.getElementById('excitementSlider').oninput = function() {
+    document.getElementById('excitementValue').innerText = this.value;
+}
+</script>
+
+<!-- Final Slide -->
 <div class="container" id="seeYouSoonSlide">
     <h1>See you soon! ❤️</h1>
     <img src="https://c.tenor.com/P9mZRMbhk4AAAAAC/tenor.gif" alt="Happy Cat" style="width: 300px; margin: 20px auto; display: block;">
-
-    <!-- Display the selected date and time -->
-    <p>Don't forget on <span id="selectedDate"></span> at <span id="selectedTime"></span></p>
-
-    <p>Cannot wait to see youuu!</p>
+    <p style="color: #ff6b6b; font-size: 24px;">We'll meet on <span id="selectedDate"></span> at <span id="selectedTime"></span>.</p>
 </div>
 
-<style>
-    /* Styling specifically for the "See You Soon" slide */
-    #seeYouSoonSlide h1,
-    #seeYouSoonSlide p,
-    #seeYouSoonSlide span {
-        color: #ff6b6b; /* Pink color */
-        font-size: 28px; /* Make the text bigger */
-        font-family: 'Arial', sans-serif;
-    }
-</style>
-
-<script>
-    // Update the rating text when the slider is used
-    document.getElementById('excitementSlider').oninput = function() {
-        document.getElementById('excitementValue').innerText = this.value;
-    }
-
-    function submitRating() {
-        const excitementValue = document.getElementById('excitementSlider').value;
-        alert(`You rated your excitement as ${excitementValue}/10!`);
-    }
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: 'eu6Sal3fQ-UYRI7Wi',
+      });
+   })();
 
-<style>
-    /* Styling for the slider track */
-    input[type="range"] {
-        -webkit-appearance: none; /* Remove default styling */
-        appearance: none;
-        width: 100%;
-        height: 25px;
-        background: linear-gradient(to right, #6a11cb, #2575fc, #43e97b, #f8ffae);
-        border-radius: 10px;
-        outline: none;
-    }
+    // Send Email function
+    function sendEmail(data) {
+    console.log("Sending email with data:", data);
+    emailjs.send("service_tf9yp36", "template_v374pbf", data)
+        .then(function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+            alert("Your email has been sent successfully!");
+        }, function(error) {
+            console.log("FAILED...", error);
+            alert("Oops! Something went wrong. Please try again.");
+            console.log("Error details:", error);  // Log detailed error information
+        });
+}
 
-    /* Styling for the slider thumb (the draggable circle) */
-    input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2px solid #ff6b6b;
-        cursor: pointer;
-    }
+    
 
-    input[type="range"]::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2px solid #ff6b6b;
-        cursor: pointer;
-    }
-
-    input[type="range"]::-ms-thumb {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2px solid #ff6b6b;
-        cursor: pointer;
-    }
-</style>
-</script>
-</div>
-
-<script>
-    // Rating slide functionality
-    document.getElementById('excitementSlider').oninput = function() {
-        document.getElementById('excitementValue').innerText = this.value;
-    }
-
-    function submitRating() {
-        const excitementValue = document.getElementById('excitementSlider').value;
-        alert(`You rated your excitement as ${excitementValue}/10!`);
-        // Add further actions here if needed
-    }
-</script>
-</div>
-
-<script>
-    // Rating slide functionality
-    document.getElementById('excitementSlider').oninput = function() {
-        document.getElementById('excitementValue').innerText = this.value;
-    }
-
-    function submitRating() {
-        const excitementValue = document.getElementById('excitementSlider').value;
-        alert(`You rated your excitement as ${excitementValue}/10!`);
-        // Add further actions here if needed
-    }
-</script>
-</div>
-
-<script>
-    // Function to show the intermediate slide
+    // Show next slides
     function showIntermediateSlide() {
         document.getElementById('slide1').classList.remove('active');
         document.getElementById('slide2').classList.add('active');
     }
 
-    // Function to show the date and time selection slide
     function showDateSlide() {
         document.getElementById('slide2').classList.remove('active');
         document.getElementById('slide3').classList.add('active');
     }
 
-    // Function to confirm date and time selection
+    // Handle date and time selection
     function confirmDate() {
-        var selectedDate = document.getElementById('dateInput').value;
-        var selectedTime = document.getElementById('timeInput').value;
+        let selectedDate = document.getElementById('dateInput').value;
+        let selectedTime = document.getElementById('timeInput').value;
+
         if (selectedDate && selectedTime) {
             document.getElementById('slide3').classList.remove('active');
             document.getElementById('activitySlide').classList.add('active');
-        } else {
-            alert('Please select both a date and a time!');
-        }
-    }
-
-    // Activity Selection (Netflix or Go Out to Eat)
-    let selectedActivity = null;
-    function selectActivity(activity) {
-        // Clear previous selection
-        document.getElementById('netflix').classList.remove('selected');
-        document.getElementById('eatout').classList.remove('selected');
-        
-        // Mark selected activity
-        selectedActivity = activity;
-        document.getElementById(activity).classList.add('selected');
-    }
-
-    function continueActivity() {
-        if (selectedActivity === 'netflix') {
-            document.getElementById('activitySlide').classList.remove('active');
-            document.getElementById('netflixOptionSlide').classList.add('active');
-        } else if (selectedActivity === 'eatout') {
-            document.getElementById('activitySlide').classList.remove('active');
-            document.getElementById('foodMenuSlide').classList.add('active');
-        } else {
-            alert("Please select an activity!");
-        }
-    }
-
-    // Netflix option selection
-    let selectedNetflixOption = null;
-    function selectNetflixOption(option) {
-        // Clear previous selection
-        const netflixOptions = document.getElementsByClassName('netflix-option');
-        for (let i = 0; i < netflixOptions.length; i++) {
-            netflixOptions[i].classList.remove('selected');
-        }
-
-        // Mark selected option
-        selectedNetflixOption = option;
-        document.getElementById(`option${option}`).classList.add('selected');
-    }
-
-    function continueNetflix() {
-    if (selectedNetflixOption !== null) {
-        document.getElementById('netflixOptionSlide').classList.remove('active');
-        document.getElementById('ratingSlide').classList.add('active');  // Move to the rating slide
-    } else {
-        alert('Please select a Netflix option!');
-    }
-}
-    
-    
-
-    // Food option selection
-    let selectedOption = null;
-    function selectOption(option) {
-        // Clear previous selection
-        const foodOptions = document.getElementsByClassName('food-option');
-        for (let i = 0; i < foodOptions.length; i++) {
-            foodOptions[i].classList.remove('selected');
-        }
-
-        // Mark selected option
-        selectedOption = option;
-        document.getElementById(`food${option}`).classList.add('selected');
-    }
-
-    function continueSelection() {
-    if (selectedOption !== null) {
-        document.getElementById('foodMenuSlide').classList.remove('active');
-        document.getElementById('ratingSlide').classList.add('active');  // Move to the rating slide
-    } else {
-        alert('Please select a food option!');
-    }
-}
-    // Rating slide functionality
-    document.getElementById('excitementSlider').oninput = function() {
-        document.getElementById('excitementValue').innerText = this.value;
-    }
-
-    function submitRating() {
-        const excitementValue = document.getElementById('excitementSlider').value;
-        alert(`You rated your excitement as ${excitementValue}/10!`);
-        // Add further actions here if needed
-    }
-</script>
-<script>
-   function showSeeYouSoonSlide() {
-    document.getElementById('ratingSlide').classList.remove('active');
-    document.getElementById('seeYouSoonSlide').classList.add('active');
-    
-    // Retrieve date and time from localStorage
-    let selectedDate = localStorage.getItem('selectedDate') || 'Not Set';
-    const selectedTime = localStorage.getItem('selectedTime') || 'Not Set';
-
-    // Format the date to MM/DD/YYYY or DD/MM/YYYY (depending on your preference)
-    const dateParts = selectedDate.split("-");
-    const formattedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`; // MM/DD/YYYY format
-
-    // Display the formatted date and time on the slide
-    document.getElementById('selectedDate').textContent = formattedDate;
-    document.getElementById('selectedTime').textContent = selectedTime;
-}
-
-    // Update the rating submission to transition to the final slide
-    function submitRating() {
-        const excitementValue = document.getElementById('excitementSlider').value;
-        alert(`You rated your excitement as ${excitementValue}/10!`);
-        
-        // Move to the "See You Soon" slide after rating
-        showSeeYouSoonSlide();
-    }
-
-    // Update the confirmDate function to store the date and time
-    function confirmDate() {
-        var selectedDate = document.getElementById('dateInput').value;
-        var selectedTime = document.getElementById('timeInput').value;
-
-        if (selectedDate && selectedTime) {
-            // Store the selected date and time in localStorage
             localStorage.setItem('selectedDate', selectedDate);
             localStorage.setItem('selectedTime', selectedTime);
-
-            // Move to the activity slide
-            document.getElementById('slide3').classList.remove('active');
-            document.getElementById('activitySlide').classList.add('active');
         } else {
             alert('Please select both a date and a time!');
         }
     }
+
+    let selectedActivity = null;
+    function selectActivity(activity) {
+        selectedActivity = activity;
+        if (activity === 'netflix') {
+            document.getElementById('activitySlide').classList.remove('active');
+            document.getElementById('netflixOptionSlide').classList.add('active');
+        } else {
+            document.getElementById('activitySlide').classList.remove('active');
+            document.getElementById('foodMenuSlide').classList.add('active');
+        }
+    }
+
+    let selectedNetflixOption = null;
+function selectNetflixOption(option) {
+    // Clear previous selections
+    const netflixOptions = document.getElementsByClassName('netflix-option');
+    for (let i = 0; i < netflixOptions.length; i++) {
+        netflixOptions[i].classList.remove('selected');
+    }
+    // Mark the selected option
+    selectedNetflixOption = option;
+    document.getElementById(`option${option}`).classList.add('selected');
+}
+
+function continueNetflix() {
+    if (selectedNetflixOption !== null) {
+        // Move to the rating slide if a Netflix option has been selected
+        document.getElementById('netflixOptionSlide').classList.remove('active');
+        document.getElementById('ratingSlide').classList.add('active');
+    } else {
+        alert('Please select a Netflix option before continuing.');
+    }
+}
+
+
+   // Food option selection
+let selectedFoodOption = null;
+function selectOption(option) {
+    // Clear previous selections
+    const foodOptions = document.getElementsByClassName('food-option');
+    for (let i = 0; i < foodOptions.length; i++) {
+        foodOptions[i].classList.remove('selected');
+    }
+    // Mark the selected food option
+    selectedFoodOption = option;
+    document.getElementById(`food${option}`).classList.add('selected');
+}
+
+function continueSelection() {
+    if (selectedFoodOption !== null) {
+        // Move to the rating slide if a food option has been selected
+        document.getElementById('foodMenuSlide').classList.remove('active');
+        document.getElementById('ratingSlide').classList.add('active');
+    } else {
+        alert('Please select a food option before continuing.');
+    }
+}
+
+function submitRating() {
+    let rating = document.getElementById('excitementSlider').value;
+
+    // Gather the selected data into templateParams
+    const templateParams = {
+        selected_date: localStorage.getItem('selectedDate'), // From date selection
+        selected_time: localStorage.getItem('selectedTime'), // From time selection
+        selected_activity: selectedActivity, // Either Netflix or Eating Out
+        selected_netflix_option: selectedNetflixOption, // The selected Netflix option (if any)
+        selected_food_option: selectedFoodOption, // The selected Food option (if any)
+        excitement_rating: rating // From the rating slider
+    };
+
+
+    // Move to the final slide (See You Soon Slide)
+    document.getElementById('ratingSlide').classList.remove('active');
+    document.getElementById('seeYouSoonSlide').classList.add('active');
+
+    // Show the selected date and time on the See You Soon Slide
+    document.getElementById('selectedDate').innerText = localStorage.getItem('selectedDate');
+    document.getElementById('selectedTime').innerText = localStorage.getItem('selectedTime');
+
+    // Send the email with the selected data
+    sendEmail(templateParams);
+    
+}
 </script>
 
 </body>
