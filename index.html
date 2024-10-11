@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide by Slide Interaction</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffecd2, #fcb69f);;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            border: 2px solid #f2f2f2;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            width: 60%;
+        }
+        .container.active {
+            display: block;
+        }
+        h1 {
+            color: #ff6b6b;
+            font-size: 28px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: #ff6b6b;
+            color: white;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #ff4a4a;
+        }
+        input {
+            padding: 20px;
+            font-size: 20px;
+            margin: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .option {
+            padding: 30px 30px;
+            font-size: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        .option.selected {
+            border-color: #ff6b6b;
+        }
+        .option:hover {
+            background-color: #ffebeb;
+        }
+        .netflix-option, .food-option {
+            text-align: center;
+        }
+        .netflix-option img, .food-option img {
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+        }
+        .netflix-option.selected img, .food-option.selected img {
+            border: 3px solid #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Initial Date Invitation -->
+<div class="container active" id="slide1">
+    <h1>Would you like to go out with me for a date?</h1>
+    <button onclick="showIntermediateSlide()">Yes ❤️</button>
+    <button>No 😢</button>
+</div>
+
+<!-- Slide 2: Intermediate Slide -->
+<div class="container" id="slide2">
+    <h1>YEAYYY!!! DON'T GO ANYWHERE</h1>
+    <img src="https://i.giphy.com/mUYtAsf6G3i4wQDDCC.webp" alt="Excited GIF" style="width: 250px; margin: 50px auto; display: block;">
+
+    <button onclick="showDateSlide()">(づ｡◕‿‿◕｡)づ CLICK ME</button>
+</div>
+
+<!-- Slide 3: Date and Time Picker -->
+<div class="container" id="slide3">
+    <h1>When are you free?</h1>
+    <input type="date" id="dateInput">
+    <input type="time" id="timeInput">
+    <button onclick="confirmDate()">( づ｡◕‿‿◕｡)づ CLICK ME</button>
+    <p id="response3"></p>
+</div>
+
+<!-- Slide 4: What Do You Want to Do? -->
+<div class="container" id="activitySlide">
+    <h1>What do you want to do?</h1>
+    <div class="option" id="netflix" onclick="selectActivity('netflix')">
+        Netflix and Chill 🍿
+    </div>
+    <div class="option" id="eatout" onclick="selectActivity('eatout')">
+        Go Out to Eat 🍽️
+    </div>
+    <button onclick="continueActivity()">Continue</button>
+</div>
+
+<!-- Slide 5: Netflix and Chill Options -->
+<div class="container" id="netflixOptionSlide">
+    <h1>What do you want to watch?</h1>
+    <div class="netflix-option" id="option1" onclick="selectNetflixOption(1)">
+        <img src="https://static2.vieon.vn/vieplay-image/poster_v4/2022/06/07/t0z9ceyq_660x946-2n1d.jpg" alt="Option 1">
+        <p>2 ngày 1 đêm</p>
+    </div>
+    <div class="netflix-option" id="option2" onclick="selectNetflixOption(2)">
+        <img src="https://i.scdn.co/image/ab67616d0000b273e623dffa87176f17458e71e5" alt="Option 2">
+        <p>Rap Viet</p>
+    </div>
+    <div class="netflix-option" id="option3" onclick="selectNetflixOption(3)">
+        <img src="https://i.scdn.co/image/ab67616d0000b273e6e6a2b1805d5f96601a4fc0" alt="Option 3">
+        <p>Our Songs</p>
+    </div>
+    <div class="netflix-option" id="option4" onclick="selectNetflixOption(4)">
+        <img src="https://i.ytimg.com/vi/ZMak63mHq5Y/maxresdefault.jpg" alt="Option 4">
+        <p>Netflix</p>
+    </div>
+    <div class="netflix-option" id="option5" onclick="selectNetflixOption(5)">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-o6N1JeOKQ5TyHIMcCfJiCgEBpF0LdL_bqD-oQwjVDwPF6prGWzlZnUYuawM0Cb7ld_g&usqp=CAU" alt="Option 5">
+        <p>ỌC ỌC ỌC </p>
+    </div>
+
+    <button id="continueNetflix" onclick="continueNetflix()">Continue</button>
+</div>
+
+<!-- Slide 6: Food Menu -->
+<div class="container" id="foodMenuSlide">
+    <h1>Where do you want to eat?</h1>
+    <div class="food-options">
+        <div class="food-option" id="food1" onclick="selectOption(1)">
+            <img src="https://images.squarespace-cdn.com/content/v1/66b58b55b251b639d5c85f1e/fcd81e90-4651-4359-98a8-c37afbb2be4c/best+asian+food+in+lone+mountain+centennial+hills+in+las+vegas+north+summerline+3.png" alt="Korean BBQ">
+            <p>Korean BBQ</p>
+        </div>
+        <div class="food-option" id="food2" onclick="selectOption(2)">
+            <img src="https://ik.imagekit.io/awwybhhmo/satellite_images/japanese/gray/about_us/16.jpg?tr=w-3840" alt="Sushi">
+            <p>Sushi</p>
+        </div>
+        <div class="food-option" id="food3" onclick="selectOption(3)">
+            <img src="https://s3-media0.fl.yelpcdn.com/bphoto/L_MsM4zQdztIeEiR491mNg/1000s.jpg" alt="Hotpot">
+            <p>Hotpot</p>
+        </div>
+        <div class="food-option" id="food4" onclick="selectOption(4)">
+            <img src="https://www.wellplated.com/wp-content/uploads/2022/05/Juicy-Air-Fryer-Steak-Recipe.jpg" alt="Steak">
+            <p>Steak</p>
+        </div>
+    </div>
+
+    <button id="continueFood" onclick="continueSelection()">Continue</button>
+</div>
+<!-- Slide 7: Rating Slide with Colorful, Larger Slider -->
+<div class="container" id="ratingSlide" style="text-align: center;">
+    <h1 style="font-family: 'Arial', sans-serif; font-weight: bold; color: #ff6b6b;">
+        🥺💖
+    </h1>
+    <img src="https://i.pinimg.com/originals/ce/6f/64/ce6f64ad7e871ffd97d75e8153136f6c.gif" alt="Cute Cat" style="width: 150px; margin: 20px auto; display: block;">
+    
+    <!-- Rating Slider with Colorful Gradient -->
+    <div class="rating-container" style="margin: 40px 0;">
+        <p style="font-family: 'Arial', sans-serif; font-size: 24px; color: #ff6b6b;">
+            Rate how excited are you
+        </p>
+        <input type="range" min="0" max="10" value="5" class="slider" id="excitementSlider" style="width: 70%; height: 15px;">
+        <p class="rating-text" style="font-family: 'Arial', sans-serif; font-size: 18px; margin-top: 20px;">
+            NAYY OR YAYYYY <span id="excitementValue">5</span>/10
+        </p>
+    </div>
+
+    <button style="padding: 15px 30px; font-size: 18px; font-family: 'Arial', sans-serif; background-color: #ff6b6b; 
+        border-radius: 10px; border: none; color: white; cursor: pointer;" onclick="submitRating()">
+        Continue c(＾＿＾)っ
+    </button>
+</div>
+<!-- Final Slide: See You Soon -->
+<div class="container" id="seeYouSoonSlide">
+    <h1>See you soon! ❤️</h1>
+    <img src="https://c.tenor.com/P9mZRMbhk4AAAAAC/tenor.gif" alt="Happy Cat" style="width: 300px; margin: 20px auto; display: block;">
+
+    <!-- Display the selected date and time -->
+    <p>Don't forget on <span id="selectedDate"></span> at <span id="selectedTime"></span></p>
+
+    <p>Cannot wait to see youuu!</p>
+</div>
+
+<style>
+    /* Styling specifically for the "See You Soon" slide */
+    #seeYouSoonSlide h1,
+    #seeYouSoonSlide p,
+    #seeYouSoonSlide span {
+        color: #ff6b6b; /* Pink color */
+        font-size: 28px; /* Make the text bigger */
+        font-family: 'Arial', sans-serif;
+    }
+</style>
+
+<script>
+    // Update the rating text when the slider is used
+    document.getElementById('excitementSlider').oninput = function() {
+        document.getElementById('excitementValue').innerText = this.value;
+    }
+
+    function submitRating() {
+        const excitementValue = document.getElementById('excitementSlider').value;
+        alert(`You rated your excitement as ${excitementValue}/10!`);
+    }
+</script>
+
+<style>
+    /* Styling for the slider track */
+    input[type="range"] {
+        -webkit-appearance: none; /* Remove default styling */
+        appearance: none;
+        width: 100%;
+        height: 25px;
+        background: linear-gradient(to right, #6a11cb, #2575fc, #43e97b, #f8ffae);
+        border-radius: 10px;
+        outline: none;
+    }
+
+    /* Styling for the slider thumb (the draggable circle) */
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #ff6b6b;
+        cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #ff6b6b;
+        cursor: pointer;
+    }
+
+    input[type="range"]::-ms-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #ff6b6b;
+        cursor: pointer;
+    }
+</style>
+</script>
+</div>
+
+<script>
+    // Rating slide functionality
+    document.getElementById('excitementSlider').oninput = function() {
+        document.getElementById('excitementValue').innerText = this.value;
+    }
+
+    function submitRating() {
+        const excitementValue = document.getElementById('excitementSlider').value;
+        alert(`You rated your excitement as ${excitementValue}/10!`);
+        // Add further actions here if needed
+    }
+</script>
+</div>
+
+<script>
+    // Rating slide functionality
+    document.getElementById('excitementSlider').oninput = function() {
+        document.getElementById('excitementValue').innerText = this.value;
+    }
+
+    function submitRating() {
+        const excitementValue = document.getElementById('excitementSlider').value;
+        alert(`You rated your excitement as ${excitementValue}/10!`);
+        // Add further actions here if needed
+    }
+</script>
+</div>
+
+<script>
+    // Function to show the intermediate slide
+    function showIntermediateSlide() {
+        document.getElementById('slide1').classList.remove('active');
+        document.getElementById('slide2').classList.add('active');
+    }
+
+    // Function to show the date and time selection slide
+    function showDateSlide() {
+        document.getElementById('slide2').classList.remove('active');
+        document.getElementById('slide3').classList.add('active');
+    }
+
+    // Function to confirm date and time selection
+    function confirmDate() {
+        var selectedDate = document.getElementById('dateInput').value;
+        var selectedTime = document.getElementById('timeInput').value;
+        if (selectedDate && selectedTime) {
+            document.getElementById('slide3').classList.remove('active');
+            document.getElementById('activitySlide').classList.add('active');
+        } else {
+            alert('Please select both a date and a time!');
+        }
+    }
+
+    // Activity Selection (Netflix or Go Out to Eat)
+    let selectedActivity = null;
+    function selectActivity(activity) {
+        // Clear previous selection
+        document.getElementById('netflix').classList.remove('selected');
+        document.getElementById('eatout').classList.remove('selected');
+        
+        // Mark selected activity
+        selectedActivity = activity;
+        document.getElementById(activity).classList.add('selected');
+    }
+
+    function continueActivity() {
+        if (selectedActivity === 'netflix') {
+            document.getElementById('activitySlide').classList.remove('active');
+            document.getElementById('netflixOptionSlide').classList.add('active');
+        } else if (selectedActivity === 'eatout') {
+            document.getElementById('activitySlide').classList.remove('active');
+            document.getElementById('foodMenuSlide').classList.add('active');
+        } else {
+            alert("Please select an activity!");
+        }
+    }
+
+    // Netflix option selection
+    let selectedNetflixOption = null;
+    function selectNetflixOption(option) {
+        // Clear previous selection
+        const netflixOptions = document.getElementsByClassName('netflix-option');
+        for (let i = 0; i < netflixOptions.length; i++) {
+            netflixOptions[i].classList.remove('selected');
+        }
+
+        // Mark selected option
+        selectedNetflixOption = option;
+        document.getElementById(`option${option}`).classList.add('selected');
+    }
+
+    function continueNetflix() {
+    if (selectedNetflixOption !== null) {
+        document.getElementById('netflixOptionSlide').classList.remove('active');
+        document.getElementById('ratingSlide').classList.add('active');  // Move to the rating slide
+    } else {
+        alert('Please select a Netflix option!');
+    }
+}
+    
+    
+
+    // Food option selection
+    let selectedOption = null;
+    function selectOption(option) {
+        // Clear previous selection
+        const foodOptions = document.getElementsByClassName('food-option');
+        for (let i = 0; i < foodOptions.length; i++) {
+            foodOptions[i].classList.remove('selected');
+        }
+
+        // Mark selected option
+        selectedOption = option;
+        document.getElementById(`food${option}`).classList.add('selected');
+    }
+
+    function continueSelection() {
+    if (selectedOption !== null) {
+        document.getElementById('foodMenuSlide').classList.remove('active');
+        document.getElementById('ratingSlide').classList.add('active');  // Move to the rating slide
+    } else {
+        alert('Please select a food option!');
+    }
+}
+    // Rating slide functionality
+    document.getElementById('excitementSlider').oninput = function() {
+        document.getElementById('excitementValue').innerText = this.value;
+    }
+
+    function submitRating() {
+        const excitementValue = document.getElementById('excitementSlider').value;
+        alert(`You rated your excitement as ${excitementValue}/10!`);
+        // Add further actions here if needed
+    }
+</script>
+<script>
+   function showSeeYouSoonSlide() {
+    document.getElementById('ratingSlide').classList.remove('active');
+    document.getElementById('seeYouSoonSlide').classList.add('active');
+    
+    // Retrieve date and time from localStorage
+    let selectedDate = localStorage.getItem('selectedDate') || 'Not Set';
+    const selectedTime = localStorage.getItem('selectedTime') || 'Not Set';
+
+    // Format the date to MM/DD/YYYY or DD/MM/YYYY (depending on your preference)
+    const dateParts = selectedDate.split("-");
+    const formattedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`; // MM/DD/YYYY format
+
+    // Display the formatted date and time on the slide
+    document.getElementById('selectedDate').textContent = formattedDate;
+    document.getElementById('selectedTime').textContent = selectedTime;
+}
+
+    // Update the rating submission to transition to the final slide
+    function submitRating() {
+        const excitementValue = document.getElementById('excitementSlider').value;
+        alert(`You rated your excitement as ${excitementValue}/10!`);
+        
+        // Move to the "See You Soon" slide after rating
+        showSeeYouSoonSlide();
+    }
+
+    // Update the confirmDate function to store the date and time
+    function confirmDate() {
+        var selectedDate = document.getElementById('dateInput').value;
+        var selectedTime = document.getElementById('timeInput').value;
+
+        if (selectedDate && selectedTime) {
+            // Store the selected date and time in localStorage
+            localStorage.setItem('selectedDate', selectedDate);
+            localStorage.setItem('selectedTime', selectedTime);
+
+            // Move to the activity slide
+            document.getElementById('slide3').classList.remove('active');
+            document.getElementById('activitySlide').classList.add('active');
+        } else {
+            alert('Please select both a date and a time!');
+        }
+    }
+</script>
+
+</body>
+</html>
