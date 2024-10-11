@@ -242,6 +242,14 @@
     </button>
 </div>
 
+<script>
+    window.onload = function() {
+        // Slider event binding
+        document.getElementById('excitementSlider').oninput = function() {
+            document.getElementById('excitementValue').innerText = this.value;
+        };
+    };
+    </script>
 <!-- Add the JavaScript to dynamically update the excitement level -->
 <script>
 document.getElementById('excitementSlider').oninput = function() {
@@ -258,8 +266,23 @@ document.getElementById('excitementSlider').oninput = function() {
 
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
 </script>
 <script type="text/javascript">
+     const foodOptions = {
+    1: 'Korean BBQ',
+    2: 'Sushi',
+    3: 'Hotpot',
+    4: 'Steak'
+};
+
+const movieOptions = {
+    1: '2 ngày 1 đêm',
+    2: 'Rap Viet',
+    3: 'Our Songs',
+    4: 'Netflix',
+    5: 'ỌC ỌC ỌC'
+};
    (function(){
       emailjs.init({
         publicKey: 'eu6Sal3fQ-UYRI7Wi',
@@ -279,6 +302,8 @@ document.getElementById('excitementSlider').oninput = function() {
             console.log("Error details:", error);  // Log detailed error information
         });
 }
+    // Mapping food and movie options to their names
+
 
     
 
@@ -321,64 +346,74 @@ document.getElementById('excitementSlider').oninput = function() {
     }
 
     let selectedNetflixOption = null;
-function selectNetflixOption(option) {
-    // Clear previous selections
-    const netflixOptions = document.getElementsByClassName('netflix-option');
-    for (let i = 0; i < netflixOptions.length; i++) {
-        netflixOptions[i].classList.remove('selected');
+    function selectNetflixOption(option) {
+        selectedNetflixOption = option;
+        const netflixOptions = document.getElementsByClassName('netflix-option');
+        for (let i = 0; i < netflixOptions.length; i++) {
+            netflixOptions[i].classList.remove('selected');
+        }
+        document.getElementById(`option${option}`).classList.add('selected');
     }
-    // Mark the selected option
-    selectedNetflixOption = option;
-    document.getElementById(`option${option}`).classList.add('selected');
-}
-
+// Continue Netflix
 function continueNetflix() {
-    if (selectedNetflixOption !== null) {
-        // Move to the rating slide if a Netflix option has been selected
-        document.getElementById('netflixOptionSlide').classList.remove('active');
-        document.getElementById('ratingSlide').classList.add('active');
-    } else {
-        alert('Please select a Netflix option before continuing.');
+        if (selectedNetflixOption !== null) {
+            document.getElementById('netflixOptionSlide').classList.remove('active');
+            document.getElementById('ratingSlide').classList.add('active');
+        } else {
+            alert('Please select a Netflix option before continuing.');
+        }
     }
-}
+
 
 
    // Food option selection
+// Select Food Option
 let selectedFoodOption = null;
-function selectOption(option) {
-    // Clear previous selections
-    const foodOptions = document.getElementsByClassName('food-option');
-    for (let i = 0; i < foodOptions.length; i++) {
-        foodOptions[i].classList.remove('selected');
+    function selectOption(option) {
+        selectedFoodOption = option;
+        const foodItems = document.getElementsByClassName('food-option');
+        for (let i = 0; i < foodItems.length; i++) {
+            foodItems[i].classList.remove('selected');
+        }
+        document.getElementById(`food${option}`).classList.add('selected');
     }
-    // Mark the selected food option
-    selectedFoodOption = option;
-    document.getElementById(`food${option}`).classList.add('selected');
-}
-
+// Continue Food Selection
 function continueSelection() {
-    if (selectedFoodOption !== null) {
-        // Move to the rating slide if a food option has been selected
-        document.getElementById('foodMenuSlide').classList.remove('active');
-        document.getElementById('ratingSlide').classList.add('active');
-    } else {
-        alert('Please select a food option before continuing.');
+        if (selectedFoodOption !== null) {
+            document.getElementById('foodMenuSlide').classList.remove('active');
+            document.getElementById('ratingSlide').classList.add('active');
+        } else {
+            alert('Please select a food option before continuing.');
+        }
     }
-}
 
-function submitRating() {
-    let rating = document.getElementById('excitementSlider').value;
+
+    function submitRating() {
+    // Get the excitementSlider element safely and check if it exists
+    const slider = document.getElementById('excitementSlider');
+    if (!slider) {
+        console.error("Slider not found.");
+        return;  // Exit if the element isn't found
+    }
+
+    let rating = slider.value;
+
+    // Check if Netflix or food option was selected
+    let selectedMovie = selectedNetflixOption ? movieOptions[selectedNetflixOption] : 'None';
+    let selectedFood = selectedFoodOption ? foodOptions[selectedFoodOption] : 'None';
 
     // Gather the selected data into templateParams
     const templateParams = {
-        selected_date: localStorage.getItem('selectedDate'), // From date selection
-        selected_time: localStorage.getItem('selectedTime'), // From time selection
-        selected_activity: selectedActivity, // Either Netflix or Eating Out
-        selected_netflix_option: selectedNetflixOption, // The selected Netflix option (if any)
-        selected_food_option: selectedFoodOption, // The selected Food option (if any)
-        excitement_rating: rating // From the rating slider
+        selected_date: localStorage.getItem('selectedDate'),  // From date selection
+        selected_time: localStorage.getItem('selectedTime'),  // From time selection
+        selected_activity: selectedActivity || 'None',  // Either Netflix or Eating Out
+        selected_netflix_option: selectedMovie,  // Use movie name or 'None'
+        selected_food_option: selectedFood,  // Use food name or 'None'
+        excitement_rating: rating  // From the rating slider
     };
 
+    // Debugging: Log templateParams to check if all values are correct
+    console.log('Submitting rating with templateParams:', templateParams);
 
     // Move to the final slide (See You Soon Slide)
     document.getElementById('ratingSlide').classList.remove('active');
@@ -390,7 +425,6 @@ function submitRating() {
 
     // Send the email with the selected data
     sendEmail(templateParams);
-    
 }
 </script>
 
